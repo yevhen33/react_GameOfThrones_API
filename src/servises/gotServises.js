@@ -40,6 +40,13 @@ export default class GoTService {
     }
 
     _trasformCharacter(char) {
+
+        for (let key in char) {
+            if (!char[key]) {
+                char[key] = 'No data';
+            }
+        }
+
         return {
             name: char.name,
             gender: char.gender,
@@ -50,6 +57,12 @@ export default class GoTService {
     }
 
     _transformBook(book) {
+        for (let key in book) {
+            if (!book[key]) {
+                book[key] = 'No data';
+            }
+        }
+
         return {
             name: book.name,
             numberOfPages: book.numberOfPages,
@@ -59,6 +72,12 @@ export default class GoTService {
     }
 
     _transformHouse(house) {
+        for (let key in house) {
+            if (!house[key]) {
+                house[key] = 'No data';
+            }
+        }
+
         return {
             name: house.name,
             region: house.region,
