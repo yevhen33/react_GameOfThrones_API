@@ -26,7 +26,8 @@ const Button = styled.button`
 export default class App extends Component {
     state = {
         showRandomChar: true,
-        error: false
+        error: false,
+        selectedChar: null
     }
 
     toggleRandomChar = () => {
@@ -59,10 +60,10 @@ export default class App extends Component {
                     </Row>
                     <Row>
                         <Col md='6'>
-                            <ItemList />
+                            <ItemList/>
                         </Col>
                         <Col md='6'>
-                            <CharDetails />
+                            <CharDetails/>
                         </Col>
                     </Row>
                 </Container>
