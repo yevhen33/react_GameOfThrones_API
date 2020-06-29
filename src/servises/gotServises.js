@@ -39,52 +39,44 @@ export default class GoTService {
         return this.getResource(`/houses/${id}`)
     }
 
-    _trasformCharacter(char) {
-
-        for (let key in char) {
-            if (!char[key]) {
-                char[key] = 'No data';
-            }
-        }
-
-        return {
-            name: char.name,
-            gender: char.gender,
-            born: char.born,
-            died: char.died,
-            culture: char.culture
+    isSet(data) {
+        if (data) {
+            return data
+        } else {
+            return 'No data'
         }
     }
 
-    _transformBook(book) {
-        for (let key in book) {
-            if (!book[key]) {
-                book[key] = 'No data';
-            }
-        }
+    _trasformCharacter = (char) => {
 
         return {
-            name: book.name,
-            numberOfPages: book.numberOfPages,
-            publiser: book.publiser,
-            released: book.released
+            name: this.isSet(char.name),
+            gender: this.isSet(char.gender),
+            born: this.isSet(char.born),
+            died: this.isSet(char.died),
+            culture: this.isSet(char.culture)
         }
     }
 
-    _transformHouse(house) {
-        for (let key in house) {
-            if (!house[key]) {
-                house[key] = 'No data';
-            }
-        }
+    _transformBook = (book) => {
 
         return {
-            name: house.name,
-            region: house.region,
-            words: house.words,
-            titles: house.titles,
-            overload: house.overload,
-            ancestralWeapons: house.ancestralWeapons
+            name: this.isSet(book.name),
+            numberOfPages: this.isSet(book.numberOfPages),
+            publiser: this.isSet(book.publiser),
+            released: this.isSet(book.released)
+        }
+    }
+
+    _transformHouse = (house) => {
+
+        return {
+            name: this.isSet(house.name),
+            region: this.isSet(house.region),
+            words: this.isSet(house.words),
+            titles: this.isSet(house.titles),
+            overload: this.isSet(house.overload),
+            ancestralWeapons: this.isSet(house.ancestralWeapons)
         }
     }
 }
