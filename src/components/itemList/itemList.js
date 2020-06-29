@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import gotService from '../../servises/gotServises';
 import Spinner from '../spinner';
 import styled from 'styled-components';
+import ErrorMessage from '../errorMessage';
 
 const ListItem = styled.ul`
     background-color: #fff;
@@ -24,33 +25,55 @@ export default class ItemList extends Component {
     gotService = new gotService();
 
     state = {
-        charList: null
+        charList: null,
+        error: false
     }
 
     componentDidMount() {
         this.gotService.getAllCharacters()
             .then((charList) => {
                 this.setState({
-                    charList
+                    charList,
+                    error: false
                 })
             })
+            .catch(() => {this.onError()});
+    }
+
+    componentDidCatch() {
+        this.setState({
+            charList: null,
+            error: true
+        })
+    }
+
+    onError() {
+        this.setState({
+            charList: null,
+            error: true
+        })
     }
 
     renderItems(arr) {
-        return arr.map((item, i) => {
+        return arr.map((item) => {
+            const {id, name} = item
             return (
                 <li 
-                    key={i}
+                    key={id}
                     className="list-group-item"
-                    onClick={() => this.props.onCharSelected(61 + i)}>
-                    {item.name}
+                    onClick={() => this.props.onCharSelected(id)}>
+                    {name}
                 </li>
             )
         })
     }
 
     render() {
-        const {charList} = this.state;
+        const {charList, error} = this.state;
+
+        if (error) {
+            return <ErrorMessage/>
+        }
 
         if(!charList) {
             return <Spinner/>
