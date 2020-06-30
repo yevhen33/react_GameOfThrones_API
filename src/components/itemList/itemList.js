@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import gotService from '../../servises/gotServises';
 import Spinner from '../spinner';
 import styled from 'styled-components';
 import ErrorMessage from '../errorMessage';
@@ -22,18 +21,18 @@ const ListItem = styled.ul`
 `;
 export default class ItemList extends Component {
 
-    gotService = new gotService();
-
     state = {
-        charList: null,
+        itemList: null,
         error: false
     }
 
     componentDidMount() {
-        this.gotService.getAllCharacters()
-            .then((charList) => {
+        const {getData} = this.props;
+
+        getData()
+            .then((itemList) => {
                 this.setState({
-                    charList,
+                    itemList,
                     error: false
                 })
             })
@@ -42,14 +41,14 @@ export default class ItemList extends Component {
 
     componentDidCatch() {
         this.setState({
-            charList: null,
+            itemList: null,
             error: true
         })
     }
 
     onError() {
         this.setState({
-            charList: null,
+            itemList: null,
             error: true
         })
     }
@@ -69,17 +68,17 @@ export default class ItemList extends Component {
     }
 
     render() {
-        const {charList, error} = this.state;
+        const {itemList, error} = this.state;
 
         if (error) {
             return <ErrorMessage/>
         }
 
-        if(!charList) {
+        if(!itemList) {
             return <Spinner/>
         }
 
-        const items = this.renderItems(charList);
+        const items = this.renderItems(itemList);
 
         return (
             <ListItem>
