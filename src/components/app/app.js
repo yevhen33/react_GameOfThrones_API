@@ -3,7 +3,7 @@ import {Col, Row, Container} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
 import ErrorMessage from '../errorMessage';
-import CharacterPage from '../characterPage';
+import {CharacterPage, BooksPage, HousesPage} from '../pages';
 
 import styled from 'styled-components';
 
@@ -63,6 +63,8 @@ export default class App extends Component {
                         </Col>
                     </Row>
                     <CharacterPage/>
+                    <BooksPage/>
+                    <HousesPage/>
                 </Container>
             </>
         );
