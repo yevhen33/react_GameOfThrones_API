@@ -4,6 +4,7 @@ import Header from '../header';
 import RandomChar from '../randomChar';
 import ErrorMessage from '../errorMessage';
 import {CharacterPage, BooksPage, HousesPage} from '../pages';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -21,6 +22,12 @@ const Button = styled.button`
         outline: none; 
     }
 `;
+
+// const AppBlock = styled.div`
+//     background: blue url('got.jpeg') center center no-repeat;
+//     background-size: cover;
+//     height: 1000px;
+// `;
 
 export default class App extends Component {
     state = {
@@ -50,23 +57,27 @@ export default class App extends Component {
         const char = this.state.showRandomChar ? <RandomChar/> : null;
 
         return (
-            <> 
-                <Container>
-                    <Header />
-                </Container>
-                <Container>
-                    <Row>
-                        <Col lg={{size: 5, offset: 0}}>
-                            {char}
-                            <Button
-                            onClick={this.toggleRandomChar}>Toggle random character</Button>
-                        </Col>
-                    </Row>
-                    <CharacterPage/>
-                    <BooksPage/>
-                    <HousesPage/>
-                </Container>
-            </>
+            <Router>
+                <> 
+                    <Container>
+                        <Header />
+                    </Container>
+                    <Container>
+                        <Row>
+                            <Col lg={{size: 5, offset: 0}}>
+                                {char}
+                                <Button
+                                onClick={this.toggleRandomChar}>Toggle random character</Button>
+                            </Col>
+                        </Row>
+
+                        <Route path='/characters' component={CharacterPage}/>
+                        <Route path='/houses' component={HousesPage}/>
+                        <Route path='/books' component={BooksPage}/>
+                        
+                    </Container>
+                </>
+            </Router>
         );
     }
 };
