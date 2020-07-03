@@ -3,10 +3,10 @@ import {Col, Row, Container} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
 import ErrorMessage from '../errorMessage';
-import {CharacterPage, BooksPage, HousesPage} from '../pages';
+import {CharacterPage, BooksPage, HousesPage, BooksItem, MainPage} from '../pages';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-
 import styled from 'styled-components';
+import img from './got.jpeg';
 
 const Button = styled.button`
     padding: 12px;
@@ -23,11 +23,11 @@ const Button = styled.button`
     }
 `;
 
-// const AppBlock = styled.div`
-//     background: blue url('got.jpeg') center center no-repeat;
-//     background-size: cover;
-//     height: 1000px;
-// `;
+const AppBlock = styled.div`
+    background-image: url(${img});
+    background-size: cover;
+    height: 1000px;
+`;
 
 export default class App extends Component {
     state = {
@@ -58,7 +58,7 @@ export default class App extends Component {
 
         return (
             <Router>
-                <> 
+                <AppBlock> 
                     <Container>
                         <Header />
                     </Container>
@@ -71,12 +71,19 @@ export default class App extends Component {
                             </Col>
                         </Row>
 
+                         <Route path='/' exact component={MainPage}/>   
                         <Route path='/characters' component={CharacterPage}/>
                         <Route path='/houses' component={HousesPage}/>
-                        <Route path='/books' component={BooksPage}/>
-                        
+                        <Route path='/books' exact component={BooksPage}/>
+                        <Route path='/books/:id' render={
+                            ({match}) => {
+                                const {id} = match.params;
+                                return <BooksItem bookId={id}/>
+                            }
+                        }/>
+
                     </Container>
-                </>
+                </AppBlock>
             </Router>
         );
     }
